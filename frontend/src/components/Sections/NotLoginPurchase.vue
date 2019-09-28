@@ -1,0 +1,35 @@
+<template>
+  <div>
+    <h3>您需要登录以太坊钱包来购买该广告牌。</h3>
+    <p>创建后您可以自行定制：</p>
+    <ul>
+      <li>广告牌的内容</li>
+      <li>广告牌价格和月租金（价格=月租金）</li>
+    </ul>
+    <br>
+    <p>您可以通过两种方式获得经济利益</p>
+    <ul>
+      <li>让您的广告牌变得有趣或者有价值，并以高价出售</li>
+      <li>引导其他人来分叉您的广告牌，并获得他的租金成分</li>
+    </ul>
+    <br>
+    <p>为了参与此实验，我需要什么？</p>
+    <P><strong>支持web3的以太坊数字钱包</strong></P>
+    <ul>
+      <li>
+        PC端<br>
+        <a href="https://metamask.io/" target="_blank">Metamask</a>、Dapper等钱包浏览器插件，需预先安装Chrome或者Firefox（火狐）浏览器
+      </li>
+      <li>
+        手机端<br>
+        使用以太坊数字钱包，如Trustwallet、Cobo、Dapper、BUNToy等
+      </li>
+    </ul>
+    <P><strong>以太币（ETH）</strong></P>
+    <ul>
+      <li>以太币是类似比特币的一种数字火币、用于在以太坊区块链网络上交易、支付、执行程序命令等行为</li>
+      <li>您可以再个大数字火币交易所从其他用户手中购买以太币</li>
+      <li>购得以太币后，您需要将所需以太币存入您的以太坊数字钱包</li>
+    </ul>
+  </div>
+</template>
