@@ -30,9 +30,11 @@
       <div tabindex="2" class="el-tabs__item el-tabs__item3 flex-item" @click="lookAround">
         随便看看
       </div>
+      <!--
       <div tabindex="3" class="el-tabs__item el-tabs__item4 flex-item">
         <span>广告牌历史记录</span>
       </div>
+      -->
     </div>
 
     <div class="el-tabs__content">
