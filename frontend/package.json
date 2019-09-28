@@ -23,7 +23,6 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
-    "openzeppelin-solidity": "2.2.0",
     "sass-loader": "^6.0.7",
     "node-sass": "^4.11.0",
     "solidity-sha3": "^0.4.1",

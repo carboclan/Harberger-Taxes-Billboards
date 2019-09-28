@@ -18,7 +18,8 @@
  *
  */
 
-const HDWalletProvider = require('truffle-hdwallet-provider');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+
 const infuraKey = "4d4db19f5885459a9181ecbf89c6aaca";
 
 const fs = require('fs');
@@ -59,6 +60,14 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true
     },
+    ropsten: {
+      provider: () => new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/252df3eadab74e84a9e5635f8a401e11"),
+      network_id: 3,       // Ropsten's id
+      gas: 6700000,        // Ropsten has a lower block limit than mainnet
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: false     // Skip dry run before migrations? (default: false for public nets )
+    },    
     mainnet: {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
