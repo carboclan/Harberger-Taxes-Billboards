@@ -1,5 +1,27 @@
 <template>
   <section class="section-wrapper">
+    <div id="tablist" class="el-tabs__nav flex-container">
+      <div ref="tabIteam" tabindex="0" class="el-tabs__item el-tabs__item1 is-active flex-item">
+        <span>1</span>
+      </div>
+      <div tabindex="1" class="el-tabs__item el-tabs__item2 flex-item">
+        <span>
+          2
+        </span>
+      </div>
+      <div tabindex="2" class="el-tabs__item el-tabs__item3 flex-item">
+        3
+      </div>
+      <div tabindex="2" class="el-tabs__item el-tabs__item3 flex-item">
+        4
+      </div>      
+      <!--
+      <div tabindex="3" class="el-tabs__item el-tabs__item4 flex-item">
+        <span>广告牌历史记录</span>
+      </div>
+      -->
+    </div>
+
     <br>
     <div class="content-container  text-left">
       <h2>现价：<span>{{ artprice }} ETH</span>&nbsp;&nbsp;<span>(¥ {{ etzprice }})</span></h2>
