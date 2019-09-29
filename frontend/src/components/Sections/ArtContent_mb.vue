@@ -5,7 +5,9 @@
       <div class="namecontentclassWrap1" :style="namecontentclassx1">
         <div class="namecontentclass" :style="namecontentclassx">
           <img v-if="cover" :src="cover" alt="cover">
-          <p>{{ text }}</p>
+<!--          <p v-if="text">
+            {{ text }}
+          </p>!-->
         </div>
       </div>
     </div>

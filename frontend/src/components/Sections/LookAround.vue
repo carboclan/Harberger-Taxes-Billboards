@@ -1,9 +1,6 @@
 <template>
   <div>
     <p>
-      <button class="confirmbuttonclass buyclassbtn" @click="lookAround">
-        随便看看
-      </button>
     </p>
   </div>
 </template>
