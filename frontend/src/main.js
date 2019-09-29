@@ -304,9 +304,6 @@ new Vue({
       let owner = await aabManager.getOwnerOf(adId, this.$store.state)
       let data = await aabManager.getAdBoardData(adId, this.$store.state)
 
-      console.log('adId11', adId)
-      console.log('owner11', owner)
-      console.log('data11', data)
       data = Object.assign({}, data, { adId, owner })
       this[ACTION_TYPES.UPDATE_CURRENT_ADBOARD](data);
       return data
@@ -315,9 +312,9 @@ new Vue({
       let owner = await aabManager.getOwnerOf(adId, this.$store.state)
       let data = await aabManager.getAdBoardData(adId, this.$store.state)
 
-      console.log('adId11', adId)
-      console.log('owner11', owner)
-      console.log('data11', data)
+      // console.log('adId11', adId)
+      // console.log('owner11', owner)
+      // console.log('data11', data)
       data = Object.assign({}, data, { adId, owner })
       // this[ACTION_TYPES.UPDATE_CURRENT_ADBOARD](data);
       return data

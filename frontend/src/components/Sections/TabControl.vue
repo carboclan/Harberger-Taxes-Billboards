@@ -1,10 +1,10 @@
 <template>
   <section class="section-wrapper">
-    <div id="tablist" class="el-tabs__nav flex-container">
+    <div id="tablist" class="el-tabs__nav flex-container card-container">
       <!-- <div ref="tabIteam" tabindex="0" class="el-tabs__item el-tabs__item1 is-active flex-item">
         <span>1</span>
       </div> -->
-      <router-link v-for="(item, index) in adList" :key="index" :to="{name: 'Main', params: { id: item.adId }}" :tabindex="index" class="el-tabs__item el-tabs__item2 flex-item">
+      <router-link v-for="(item, index) in adList" :key="index" :to="{name: 'Main', params: { id: item.adId }}" :tabindex="index" class="el-tabs__item el-tabs__item2 flex-item card">
         <span>
           <!-- {{ item }} -->
           {{ item.adId }}
@@ -13,7 +13,7 @@
           <br>
           {{ item.price }}
           <br>
-          {{ item.content }}
+          {{ item.content || 'not' }}
         </span>
       </router-link>
       <!--
@@ -178,11 +178,14 @@ export default {
   watch: {
     coinbase (coinbase) {
       this.isLogin = (coinbase != null) ? true : false
+      console.log('coinbase', coinbase)
+      this.getTotalNumber()
+
     },
     owner (owner) {
       this.isOwner = (this.$store.state.web3.coinbase.toLowerCase() === owner.toLowerCase())
-      console.log('coinbase', this.$store.state.web3.coinbase)
-      console.log('owner', owner)
+      // console.log('coinbase', this.$store.state.web3.coinbase)
+      // console.log('owner', owner)
     }
   },
   mounted() {
@@ -202,9 +205,9 @@ export default {
     this.isLogin = (coinbase != null)
     this.isOwner = this.isLogin && (owner != null) && (coinbase.toLowerCase() === owner.toLowerCase())
 
-    setTimeout(() => {
-      this.getTotalNumber()
-    }, 1000)
+    // setTimeout(() => {
+    //   this.getTotalNumber()
+    // }, 1000)
 
   },
   created(){
@@ -228,24 +231,20 @@ export default {
     },
 
     getAdBoardData: async function(total) {
-      console.log(total)
-      let arr = []
-      for (let i = total-1; i >= 0; i--) {
-        let res = await this.$root.getAdBoardDataId(i)
-        console.log('res', res)
-        arr.push(res)
+      for (let i = 0; i < total; i++) {
+        try {
+          let res = await this.$root.getAdBoardDataId(i)
+          console.log('res', res)
+          // arr.push(res)
+          this.adList.push(res)
+        } catch (error) {
+          console.log('getAdBoardDataId', error)
+        }
       }
-      this.adList = arr.reverse()
-      // let res = await this.$root.getAdBoardData(1)
-      // console.log('res', res)
-
-      // let res1 = await this.$root.getAdBoardData(4)
-      // console.log('res1', res1)
-
     },
     getTotalNumber: async function () {
       await this.$root.getTotalNumber().then(res => {
-        console.log('totalNumber', res)
+        // console.log('totalNumber', res)
         this.getAdBoardData(Number(res))
       })
     }
@@ -370,4 +369,18 @@ export default {
     margin: 0 auto;
   }
   .el-tabs__content{width:100%}
+</style>
+
+<style scoped>
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  width: 32%;
+  margin: 10px 0;
+}
+.card:nth-of-type(3n-1) {
+  margin: 10px 2%;
+}
 </style>
