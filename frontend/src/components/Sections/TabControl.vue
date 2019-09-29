@@ -12,8 +12,8 @@
           owner: {{ item.owner.toString().slice(-10) }}
           <br>
           price: {{ item.price / 10 ** 18 }}
-          <br>
-          content: {{ item.content || 'not' }}
+          <!-- <br> -->
+          <!-- content: {{ item.content || 'not' }} -->
         </span>
       </router-link>
       <!--

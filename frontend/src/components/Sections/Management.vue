@@ -39,13 +39,13 @@
       </ul>
     </div>
     <div class="firstclass funbtnclass">
-      <textarea ref="newContent" placeholder="插入新广告内容： （本广告牌字数限制：24个中文字符/48个字符）" class="initNameclass" />
+      <!-- <textarea ref="newContent" v-model="content" placeholder="插入新广告内容： （本广告牌字数限制：24个中文字符/48个字符）" class="initNameclass" /> -->
       <span class="contenttipsclass">{{ contenttips }}</span><br>
-      <p>
+      <!-- <p>
         <button class="confirmbuttonclass confirmname" @click="changeContent">
           确认修改名称
         </button>
-      </p>
+      </p> -->
       <div class="billboard-slide">
         <div class="billboard-container">
           <p class="billboard-title">
@@ -72,12 +72,13 @@
             class="billboard-input"
             placeholder="输入图片的链接地址（包含http(s)://）"
           >
-          <!-- <input
-              id="billboardInputContent"
-              type="text"
-              class="billboard-input"
-              placeholder="输入广告内容"
-            > -->
+          <input
+            id="billboardInputContent"
+            v-model="content"
+            type="text"
+            class="billboard-input"
+            placeholder="插入新广告内容： （本广告牌字数限制：24个中文字符/48个字符）"
+          >
           <a id="definedButton" href="javascript:void(0);" class="button defined-btn" @click="changeContentImg">确定</a>
         </div>
       </div>
@@ -102,6 +103,7 @@ export default {
   data() {
     return {
       contenttips:"",
+      content: '',
       isLogin:false,
       cover: '',
       loading: false,
@@ -156,24 +158,42 @@ export default {
       const data = Object.assign({}, { priceToChange })
       this.$root.changePrice(data)
     },
-    changeContent:function(){
-      let contentToChange = this.$refs.newContent.value;
-      if(contentToChange.length > 24){
-        this.contenttips="内容长度不超过24个汉字或48个字符"
-        return;
-      }
+    // changeContent:function(){
+    //   let contentToChange = this.content
+    //   if(contentToChange.length > 24){
+    //     this.contenttips="内容长度不超过24个汉字或48个字符"
+    //     return;
+    //   }
 
-      const data = Object.assign({}, { contentToChange })
-      this.$root.changeContent(data)
-    },
+    //   let contentData = {
+    //     text: contentToChange,
+    //     cover: this.cover,
+    //   }
+    //   let contentDataJson = JSON.stringify(contentData)
+
+    //   const data = Object.assign({}, { contentToChange: contentDataJson })
+    //   this.$root.changeContent(data)
+    // },
     changeContentImg:function(){
-      let contentToChange = this.$refs.newContentImg.value;
-      if(contentToChange.length > 24){
-        this.contenttips="内容长度不超过24个汉字或48个字符"
-        return;
+      if(!this.cover.length){
+        return alert('图片地址不能为空')
       }
 
-      const data = Object.assign({}, { contentToChange })
+      if(!this.content.length) {
+        return alert("内容不能为空")
+      }
+
+      if(this.content.length > 24){
+        return alert("内容长度不超过24个汉字或48个字符")
+      }
+
+      let contentData = {
+        text: this.content,
+        cover: this.cover,
+      }
+      let contentDataJson = JSON.stringify(contentData)
+
+      const data = Object.assign({}, { contentToChange: contentDataJson })
       this.$root.changeContent(data)
     },
     depositWei: function() {
@@ -183,7 +203,7 @@ export default {
       this.$root.addDeposit(data)
     },
     withdrawDeposit: function() {
-      
+
       let amountToWithdraw = this.$refs.withdrawDeposit.value;
 
       const data = Object.assign({}, { amountToWithdraw })

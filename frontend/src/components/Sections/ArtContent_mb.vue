@@ -4,7 +4,8 @@
       <!-- <h2 class="titleclass">{{artTitle}}登录MetaMesk后PC</h2> -->
       <div class="namecontentclassWrap1" :style="namecontentclassx1">
         <div class="namecontentclass" :style="namecontentclassx">
-          <p>{{ artName }}</p>
+          <img v-if="cover" :src="cover" alt="cover">
+          <p>{{ text }}</p>
         </div>
       </div>
     </div>
@@ -70,7 +71,16 @@ export default {
       },
       eltabpaneHeight1:{
         height:'',         
-      }
+      },
+      cover: '',
+      text: ''
+    }
+  },
+  watch: {
+    artName(newVal) {
+      let val = JSON.parse(newVal)
+      if (val.cover) this.cover = val.cover
+      if (val.text) this.text = val.text
     }
   },
   created(){
@@ -101,6 +111,21 @@ export default {
         align-items: center;
     flex-direction: row;
     display:flex;
+    position: relative;
+}
+
+.namecontentclass img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.namecontentclass p {
+  z-index: 9;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 90%;
 }
 .namecontentclassWrap1{
     box-shadow: 0 0 10px rgba(0,0,0,.7);
