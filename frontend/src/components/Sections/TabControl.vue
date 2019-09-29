@@ -6,14 +6,21 @@
       </div> -->
       <router-link v-for="(item, index) in adList" :key="index" :to="{name: 'Main', params: { id: item.adId }}" :tabindex="index" class="el-tabs__item el-tabs__item2 flex-item card">
         <span>
-          <!-- {{ item }} -->
+          <!--
+          <img 
+            v-if="item.content" 
+            :src="JSON.parse(item.content).cover"
+            alt="cover"
+          >-->
+          <!-- v-if="item.content.cover" 
+           {{ item }} -->
           <!-- {{ item.adId }} -->
           <br>
-          owner: {{ item.owner.toString().slice(-10) }}
+          owner: <a href="">{{ item.owner.toString().slice(-6) }}</a>
           <br>
           price: {{ item.price / 10 ** 18 }}
-          <!-- <br> -->
-          <!-- content: {{ item.content || 'not' }} -->
+          <br>
+          content: {{item.content || '-' }}
         </span>
       </router-link>
       <!--
@@ -27,7 +34,7 @@
     <div class="content-container  text-left">
       <h2>现价：<span>{{ artprice }} ETH</span>&nbsp;&nbsp;<span>(¥ {{ etzprice }})</span></h2>
       <p>
-        现持有人：<span>{{ currentpatron }}</span><br>
+        现持有人：<span><a href="">{{ currentpatron }}</a></span><br>
         已持有时间：<span>{{ timeHeld }}</span><br>
         广告牌编号：<span>{{ adBoardId }}</span><br>
         分叉自：<span>{{ parentBoardId }}号广告牌</span><br>
@@ -163,7 +170,9 @@ export default {
       },
       isLogin:false,
       isOwner:false,
-      adList: []
+      adList: [],
+      cover: '',
+      text: ''      
     };
   },
   computed: {
@@ -183,7 +192,12 @@ export default {
       this.isOwner = (this.$store.state.web3.coinbase.toLowerCase() === owner.toLowerCase())
       // console.log('coinbase', this.$store.state.web3.coinbase)
       // console.log('owner', owner)
-    }
+    },
+    artName(newVal) {
+      let val = JSON.parse(newVal)
+      if (val.cover) this.cover = val.cover
+      if (val.text) this.text = val.text
+    }    
   },
   mounted() {
     $(".el-tabs__item:not(.el-tabs__item3)").click(
