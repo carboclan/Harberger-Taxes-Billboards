@@ -379,6 +379,14 @@ export default {
 .card {
   width: 32%;
   margin: 10px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+  transition: all .3s;
+}
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+}
+.card:hover span {
+  color: #000;
 }
 .card span {
   overflow: hidden;
@@ -389,4 +397,6 @@ export default {
 .card:nth-of-type(3n-1) {
   margin: 10px 2%;
 }
+
+
 </style>
