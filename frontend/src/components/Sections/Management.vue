@@ -46,41 +46,39 @@
           确认修改名称
         </button>
       </p>
-      <div>
-        <div class="billboard-slide">
-          <div class="billboard-container">
-            <p class="billboard-title">
-              上传广告图片
-            </p>
-            <div class="billboard-img">
-              <input ref="file" type="file" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" @change="upload">
-              <img v-if="!cover" id="billboardAdd" class="add" src="@/assets/upload/add.png" alt="add" @click="uploadAdd">
-              <img v-if="cover" id="billboardCover" class="cover" :src="cover" alt="cover">
-              <div v-if="cover" id="billboardDel" class="full" @click="cover = ''">
-                <img class="del" src="@/assets/upload/del.png" alt="del">
-              </div>
-              <div v-if="loading" id="billboardLoading" class="full-loading">
-                上传中...
-              </div>
+      <div class="billboard-slide">
+        <div class="billboard-container">
+          <p class="billboard-title">
+            上传广告图片
+          </p>
+          <div class="billboard-img">
+            <input ref="file" type="file" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" @change="upload">
+            <img v-if="!cover" id="billboardAdd" class="add" src="@/assets/upload/add.png" alt="add" @click="uploadAdd">
+            <img v-if="cover" id="billboardCover" class="cover" :src="cover" alt="cover">
+            <div v-if="cover" id="billboardDel" class="full" @click="cover = ''">
+              <img class="del" src="@/assets/upload/del.png" alt="del">
             </div>
-            <p class="des">
-              *请上传2/1尺寸的图片
-            </p>
-            <input
-              id="billboardInput"
-              v-model="cover"
-              type="text"
-              class="billboard-input"
-              placeholder="输入图片的链接地址（包含http(s)://）"
-            >
-            <!-- <input
+            <div v-if="loading" id="billboardLoading" class="full-loading">
+              上传中...
+            </div>
+          </div>
+          <p class="des">
+            *请上传2/1尺寸的图片
+          </p>
+          <input
+            id="billboardInput"
+            v-model="cover"
+            type="text"
+            class="billboard-input"
+            placeholder="输入图片的链接地址（包含http(s)://）"
+          >
+          <!-- <input
               id="billboardInputContent"
               type="text"
               class="billboard-input"
               placeholder="输入广告内容"
             > -->
-            <a id="definedButton" href="javascript:void(0);" class="button defined-btn" @click="changeContentImg">确定</a>
-          </div>
+          <a id="definedButton" href="javascript:void(0);" class="button defined-btn" @click="changeContentImg">确定</a>
         </div>
       </div>
       <div>

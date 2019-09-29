@@ -7,13 +7,13 @@
       <router-link v-for="(item, index) in adList" :key="index" :to="{name: 'Main', params: { id: item.adId }}" :tabindex="index" class="el-tabs__item el-tabs__item2 flex-item card">
         <span>
           <!-- {{ item }} -->
-          {{ item.adId }}
+          <!-- {{ item.adId }} -->
           <br>
-          {{ item.owner.toString().slice(-10) }}
+          owner: {{ item.owner.toString().slice(-10) }}
           <br>
-          {{ item.price }}
+          price: {{ item.price / 10 ** 18 }}
           <br>
-          {{ item.content || 'not' }}
+          content: {{ item.content || 'not' }}
         </span>
       </router-link>
       <!--
@@ -379,6 +379,12 @@ export default {
 .card {
   width: 32%;
   margin: 10px 0;
+}
+.card span {
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  font-size: 16px;
 }
 .card:nth-of-type(3n-1) {
   margin: 10px 2%;
