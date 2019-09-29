@@ -1,20 +1,21 @@
 <template>
   <section class="section-wrapper">
     <div id="tablist" class="el-tabs__nav flex-container">
-      <div ref="tabIteam" tabindex="0" class="el-tabs__item el-tabs__item1 is-active flex-item">
+      <!-- <div ref="tabIteam" tabindex="0" class="el-tabs__item el-tabs__item1 is-active flex-item">
         <span>1</span>
-      </div>
-      <div tabindex="1" class="el-tabs__item el-tabs__item2 flex-item">
+      </div> -->
+      <router-link v-for="(item, index) in adList" :key="index" :to="{name: 'Main', params: { id: item.adId }}" :tabindex="index" class="el-tabs__item el-tabs__item2 flex-item">
         <span>
-          2
+          <!-- {{ item }} -->
+          {{ item.adId }}
+          <br>
+          {{ item.owner.toString().slice(-10) }}
+          <br>
+          {{ item.price }}
+          <br>
+          {{ item.content }}
         </span>
-      </div>
-      <div tabindex="2" class="el-tabs__item el-tabs__item3 flex-item">
-        3
-      </div>
-      <div tabindex="2" class="el-tabs__item el-tabs__item3 flex-item">
-        4
-      </div>      
+      </router-link>
       <!--
       <div tabindex="3" class="el-tabs__item el-tabs__item4 flex-item">
         <span>广告牌历史记录</span>
@@ -164,7 +165,8 @@ export default {
         height:'',         
       },
       isLogin:false,
-      isOwner:false
+      isOwner:false,
+      adList: []
     };
   },
   computed: {
@@ -179,6 +181,8 @@ export default {
     },
     owner (owner) {
       this.isOwner = (this.$store.state.web3.coinbase.toLowerCase() === owner.toLowerCase())
+      console.log('coinbase', this.$store.state.web3.coinbase)
+      console.log('owner', owner)
     }
   },
   mounted() {
@@ -193,13 +197,21 @@ export default {
 
     let coinbase = this.$store.state.web3.coinbase;
     let owner = this.$store.state.currentAdBoard.owner;
+    console.log('coinbase', coinbase)
+    console.log('owner', owner)
     this.isLogin = (coinbase != null)
     this.isOwner = this.isLogin && (owner != null) && (coinbase.toLowerCase() === owner.toLowerCase())
+
+    setTimeout(() => {
+      this.getTotalNumber()
+    }, 1000)
+
   },
   created(){
     this.getHeight();
     window.addEventListener('onload',this.getHeight);
     window.addEventListener('resize',this.getHeight);
+
   },
   destoryed(){
     window.addEventListener('onload',this.getHeight);
@@ -213,6 +225,29 @@ export default {
     },
     lookAround: function() {
       this.$root.lookAround();
+    },
+
+    getAdBoardData: async function(total) {
+      console.log(total)
+      let arr = []
+      for (let i = total-1; i >= 0; i--) {
+        let res = await this.$root.getAdBoardDataId(i)
+        console.log('res', res)
+        arr.push(res)
+      }
+      this.adList = arr.reverse()
+      // let res = await this.$root.getAdBoardData(1)
+      // console.log('res', res)
+
+      // let res1 = await this.$root.getAdBoardData(4)
+      // console.log('res1', res1)
+
+    },
+    getTotalNumber: async function () {
+      await this.$root.getTotalNumber().then(res => {
+        console.log('totalNumber', res)
+        this.getAdBoardData(Number(res))
+      })
     }
   }
 };

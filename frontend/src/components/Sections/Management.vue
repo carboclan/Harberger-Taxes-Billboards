@@ -41,13 +41,21 @@
     <div class="firstclass funbtnclass">
       <textarea ref="newContent" placeholder="插入新广告内容： （本广告牌字数限制：24个中文字符/48个字符）" class="initNameclass" />
       <span class="contenttipsclass">{{ contenttips }}</span><br>
-      <br>
+      <p>
+        <button class="confirmbuttonclass confirmname" @click="changeContent">
+          确认修改名称
+        </button>
+      </p>
       <div>
+        <textarea ref="newContentImg" placeholder="插入新广告图片： （包含http(s)://）" class="initNameclass" />
+        <span class="contenttipsclass">{{ contenttips }}</span><br>
         <p>
-          <button class="confirmbuttonclass confirmname" @click="changeContent">
-            确认修改名称
+          <button class="confirmbuttonclass confirmname" @click="changeContentImg">
+            确认修改图片
           </button>
         </p>
+      </div>
+      <div>
         <!-- <p>
           <button class="confirmbuttonclass  confirmname" @click="withdrawAllDeposit">
             取出所有预存款
@@ -81,6 +89,16 @@ export default {
     },
     changeContent:function(){
       let contentToChange = this.$refs.newContent.value;
+      if(contentToChange.length > 24){
+        this.contenttips="内容长度不超过24个汉字或48个字符"
+        return;
+      }
+
+      const data = Object.assign({}, { contentToChange })
+      this.$root.changeContent(data)
+    },
+    changeContentImg:function(){
+      let contentToChange = this.$refs.newContentImg.value;
       if(contentToChange.length > 24){
         this.contenttips="内容长度不超过24个汉字或48个字符"
         return;

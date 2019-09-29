@@ -291,14 +291,35 @@ new Vue({
     async lookAround() {
       // from contract
       let numAdBoards = await aabManager.getTotalNumAdBoards(this.$store.state);
+      console.log('numAdBoards', numAdBoards * 1, this.$store.state)
       let adId = Math.floor((Math.random() * numAdBoards));
       this.reloadSite(adId);
+    },
+    // 得到总数
+    async getTotalNumber() {
+      let numAdBoards = await aabManager.getTotalNumAdBoards(this.$store.state);
+      return numAdBoards * 1
     },
     async getAdBoardData(adId) {
       let owner = await aabManager.getOwnerOf(adId, this.$store.state)
       let data = await aabManager.getAdBoardData(adId, this.$store.state)
+
+      console.log('adId11', adId)
+      console.log('owner11', owner)
+      console.log('data11', data)
       data = Object.assign({}, data, { adId, owner })
       this[ACTION_TYPES.UPDATE_CURRENT_ADBOARD](data);
+      return data
+    },
+    async getAdBoardDataId(adId) {
+      let owner = await aabManager.getOwnerOf(adId, this.$store.state)
+      let data = await aabManager.getAdBoardData(adId, this.$store.state)
+
+      console.log('adId11', adId)
+      console.log('owner11', owner)
+      console.log('data11', data)
+      data = Object.assign({}, data, { adId, owner })
+      // this[ACTION_TYPES.UPDATE_CURRENT_ADBOARD](data);
       return data
     },
     async getOwnerOf(adId) {
