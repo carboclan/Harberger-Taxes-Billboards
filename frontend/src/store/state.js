@@ -1,6 +1,10 @@
 export default {
   currentRoute: null,
   currentView: null,
+
+  billboardURL: {
+  },
+
   web3: {
     address: null,
     coinbase: null,
@@ -21,3 +25,4 @@ export default {
   },
   isDAppReady: false,
 }
+

@@ -334,6 +334,56 @@ new Vue({
     async getEthPrice() {
       return await axios.get(CRYPTO_COMPARE_URL);
     },
+    async setBillboardURL(id, url) {
+      id += 1000;
+      const response = await request
+        .get('https://api.leancloud.cn/1.1/classes/ad')
+        .set({
+          'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+          'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+        })
+        .type('json')
+        .accept('json');
+      if (response.body && response.body.results) {
+        store = response.body.results;
+      }
+      const item = store.find(x => x.id === `${id}`);
+    
+      if (item) {
+        // update request
+        await request
+          .put(`https://api.leancloud.cn/1.1/classes/ad/${item.objectId}`)
+          .set({
+            'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+            'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+          })
+          .type('json')
+          .accept('json')
+          .send({
+            str: url,
+          });
+        // update store
+        item.str = str;
+      } else {
+        // create request
+        await request
+          .post('https://api.leancloud.cn/1.1/classes/ad')
+          .set({
+            'X-LC-Id': 'R6A46DH2meySCVNM1uWOoW2M-gzGzoHsz',
+            'X-LC-Key': '8R6rGgpHa0Y9pq8uO53RAPCB',
+          })
+          .type('json')
+          .accept('json')
+          .send({
+            id: `${id}`,
+            str: url,
+          });
+        // update store
+        //await init();
+      }    
+      return url;
+    },
+
     async getHistory(adId) {
       let apiUrl = BACKEND_SERVER_ADDRESS + "/api/v1/getAdBoardHistory?ad_id=" + adId;
       return await axios.get(apiUrl);
