@@ -9,7 +9,7 @@ export const NETWORKS = {
   '666': 'Daniel Private Blockchain' // This is a test private blockchain. You can change it to your own private blockchain if you have one.
 }
 
-export const APPROVED_NETWORK_ID = '3' // Default is undefined. Set as you choose
+export const APPROVED_NETWORK_ID = '42' // Default is undefined. Set as you choose
 
 export const CRYPTO_COMPARE_URL = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD'
 //export const BACKEND_SERVER_ADDRESS = 'http://127.0.0.1:3000'
