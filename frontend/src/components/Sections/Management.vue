@@ -67,6 +67,7 @@
           </p>
           <input
             id="billboardInput"
+            ref="newContentImg"
             v-model="cover"
             type="text"
             class="billboard-input"
