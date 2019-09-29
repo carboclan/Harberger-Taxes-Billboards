@@ -67,6 +67,7 @@
           </p>
           <input
             id="billboardInput"
+            ref="newContentImg"
             v-model="cover"
             type="text"
             class="billboard-input"
@@ -167,6 +168,7 @@ export default {
       this.$root.changeContent(data)
     },
     changeContentImg:function(){
+      alert("123");
       let contentToChange = this.$refs.newContentImg.value;
       if(contentToChange.length > 24){
         this.contenttips="内容长度不超过24个汉字或48个字符"
