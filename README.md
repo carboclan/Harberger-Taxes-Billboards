@@ -1,4 +1,7 @@
 # Harberger-Taxes-Billboards
+
+Demo: http://capitalbox.one/index.html#/ad/0
+
 “A DeFi Billboard” Harberger Taxes Social Experiment. It will be both physical and virtual: We will conduct a continuous auction for 10 display slots on [www.Defi.wtf](https://www.defi.wtf/) with a Harberger Tax mechanism. In a Harberger Taxation model, the buyer/advertiser sets the price, then the next buyer accepts the price, and pays a tax until he/she is bought out by another buyer, or he stops paying taxes. The tax goes to the event’s ENS address: defiwtf.eth. The proceeds will go into funding the event and funding research that comes out of the event.
 
 ## Reference
