@@ -94,16 +94,6 @@
           </div>
         </div>
       </div>
-      <div id="pane-2" class="el-tab-pane pane-2" :style="eltabpaneHeight">
-        <div class="in-el-tab-pane" :style="eltabpaneHeight1">
-          <div v-if="isLogin">
-            <lookaround />
-          </div>
-          <div v-else>
-            <not_login_lookaround />
-          </div>
-        </div>
-      </div>
       <div id="pane-3" class="el-tab-pane pane-3" :style="eltabpaneHeight">
         <div class="in-el-tab-pane" :style="eltabpaneHeight1">
           <history />
@@ -117,22 +107,18 @@
 import $ from 'jquery';
 import NotLoginFork from './NotLoginFork';
 import NotLoginPurchase from './NotLoginPurchase';
-import NotLoginLookAround from './NotLoginLookAround';
 import Fork from './Fork';
 import Management from './Management';
 import Purchase from './Purchase';
-import LookAround from './LookAround';
 import History from './History';
 import { mapState } from 'vuex'
 export default {
   components: {
     "not_login_fork": NotLoginFork,
     "not_login_purchase": NotLoginPurchase,
-    "not_login_lookaround": NotLoginLookAround,
     "fork": Fork,
     "management": Management,
     "purchase": Purchase,
-    "lookaround": LookAround,
     "history": History
   },
   props: [
@@ -237,10 +223,6 @@ export default {
       this.tabBtn.height=parseInt(window.innerWidth/12)+'px';
       this.tabBtn1.height=parseInt(window.innerWidth/12)+'px';
     },
-    lookAround: function() {
-      this.$root.lookAround();
-    },
-
     getAdBoardData: async function(total) {
       for (let i = 0; i < total; i++) {
         try {
