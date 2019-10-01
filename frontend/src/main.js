@@ -289,11 +289,6 @@ new Vue({
         })
     },
     async lookAround() {
-      // from contract
-      let numAdBoards = await aabManager.getTotalNumAdBoards(this.$store.state);
-      console.log('numAdBoards', numAdBoards * 1, this.$store.state)
-      let adId = Math.floor((Math.random() * numAdBoards));
-      this.reloadSite(adId);
     },
     // 得到总数
     async getTotalNumber() {
