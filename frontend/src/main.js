@@ -246,13 +246,11 @@ new Vue({
         })
     },
     addDeposit(data) {
-
       const param = Object.assign({}, {
         state: this.$store.state,
         adId: this.$store.state.currentAdBoard.adId,
         depositToAdd: parseFloat(data.depositToAdd)
       })
-
       aabManager.addDeposit(param)
         .then((result) => {
           for (var i = 0; i < result.logs.length; i++) {
@@ -266,6 +264,17 @@ new Vue({
         .catch((error) => {
           console.error("main.js addDeposit: " + JSON.stringify(error))
         })
+    },
+    withdrawTaxIncome(data) {
+      const param = Object.assign({}, {
+      });
+      aabManager.withdrawTaxIncome(param)
+        .then((result) => {
+          alert("Withdraw Success!");
+        })
+        .catch((error) => {
+          console.error("main.js withdrawDeposit: " + JSON.stringify(error))
+        });
     },
     withdrawDeposit(data) {
       const param = Object.assign({}, {

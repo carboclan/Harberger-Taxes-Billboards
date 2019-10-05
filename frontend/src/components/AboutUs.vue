@@ -4,6 +4,9 @@
     <div class="boxsecond">
       Comming soon...
     </div>
+      <button class="confirmbuttonclass buyclassbtn" @click="withdraw">
+        withdraw
+      </button>    
   </div>
 </template>
 
@@ -25,7 +28,13 @@ export default {
         $(this).find("span").html("+");
       }
     });
-  }
+  },
+  methods: {
+    withdraw() {
+      const data = Object.assign({}, { })
+      this.$root.withdrawTaxIncome(data)
+    },
+  }  
 }
 </script>
 

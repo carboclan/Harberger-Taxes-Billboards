@@ -111,7 +111,7 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      */
 
     modifier adBoardExists(uint256 adId) {
-        require(adId >= 0 && _exists(adId));
+        require(_exists(adId));
         _;
     }
      
