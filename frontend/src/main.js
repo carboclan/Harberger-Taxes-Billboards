@@ -267,6 +267,7 @@ new Vue({
     },
     withdrawTaxIncome(data) {
       const param = Object.assign({}, {
+        state: this.$store.state,
       });
       aabManager.withdrawTaxIncome(param)
         .then((result) => {

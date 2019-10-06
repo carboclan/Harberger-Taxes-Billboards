@@ -130,6 +130,26 @@ class AABManager {
     })
   }
 
+  withdrawTaxIncome (param = {}) {
+    return new Promise(function (resolve, reject) {
+
+      const data = Object.assign({}, {
+        state: param.state,
+        contractToUse: AABoard,
+        contractMethod: "withdrawTaxIncome",
+        methodParam: Object.assign({}),
+        value: ''
+      })
+      return blockchainManager.invokeBlockChain(data)
+        .then((data) => {
+          resolve(data)
+        })
+        .catch((err) => {
+          reject({err})
+        })
+    })
+  }  
+
   withdrawDeposit (param = {}) {
     return new Promise(function (resolve, reject) {
       let adId = param.adId

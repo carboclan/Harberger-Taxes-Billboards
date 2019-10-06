@@ -3,48 +3,13 @@ pragma solidity >=0.4.21 <0.6.0;
 /**
  *    @title An Advertisement Board v0.0.1
  *    @notice Inspired by https://github.com/simondlr/thisartworkisalwaysonsale
- *    font: Straight & 3D Diagonal
- *
- *    ___ __           __  __  __     __  __  __ __ __    ___ __ 
- *     | |_  /\ |\/|  |  \/  \/ _ |  |__)|__)|_ (_ |_ |\ | | (_    
- *     | |__/--\|  |  |__/\__/\__)|  |   | \ |____)|__| \| | __)
- *                                                                                                                                                                                                                                 
- *                                                                                          ,----..                                           
- *       ,---,                              ,---,            ,---,               ,---,.    /   /   \      ,---,        ,-.----.      ,---,   
- *======'  .' \============================'  .' \=========.'  .' `\===========,'  .'  \==/   .     :===='  .' \======\    /  \====.'  .' `\========   
- *     /  ;    '.          ,---,          /  ;    '.     ,---.'     \         ,---.' .' | .   /   ;.  \ /  ;    '.    ;   :    \ ,---.'     \  
- *    :  :       \     ,-+-. /  |        :  :       \   |   |  .`\  |        |   |  |: |.   ;   /  ` ;:  :       \   |   | .\ : |   |  .`\  | 
- *    :  |   /\   \   ,--.'|'   |        :  |   /\   \  :   : |  '  |        :   :  :  /;   |  ; \ ; |:  |   /\   \  .   : |: | :   : |  '  | 
- *    |  :  ' ;.   : |   |  ,"' |        |  :  ' ;.   : |   ' '  ;  :        :   |    ; |   :  | ; | '|  :  ' ;.   : |   |  \ : |   ' '  ;  : 
- *    |  |  ;/  \   \|   | /  | |        |  |  ;/  \   \'   | ;  .  |        |   :     \.   |  ' ' ' :|  |  ;/  \   \|   : .  / '   | ;  .  | 
- *    '  :  | \  \ ,'|   | |  | |        '  :  | \  \ ,'|   | :  |  '        |   |   . |'   ;  \; /  |'  :  | \  \ ,';   | |  \ |   | :  |  ' 
- *    |  |  '  '--'  |   | |  |/         |  |  '  '--'  '   : | /  ;         '   :  '; | \   \  ',  / |  |  '  '--'  |   | ;\  \'   : | /  ;  
- *    |  :  :        |   | |--'          |  :  :        |   | '` ,/          |   |  | ;   ;   :    /  |  :  :        :   ' | \.'|   | '` ,/   
- *====|  | ,'========|   |/==============|  | ,'========;   :  .'============|   :   /====\   \ .'====|  | ,'========:   : :-'==;   :  .'==========  
- *    `--''          '---'               `--''          |   ,.'              |   | ,'       `---`     `--''          |   |.'    |   ,.'       
- *                                                      '---'                `----'                                  `---'      '---'         
- *
- *     __  __ __  __          ┌─────────────────────────────┐       __ __  __ ___ __ 
- *    /  \|_ |_ |/  | /\ |    |  https://www.dogigames.com     |  ||_ |__)(_ | | |_  
- *    \__/|  |  |\__|/--\|__  └─┬─────────────────────────┬─┘  |/\||__|__)__)| | |__ 
- *                                                                                                                        
- *                                                                                                                                                                                                                                                                                                                                                             
+ *    font: Straight & 3D Diagonal                                                                                                                                                                                                                                                                                                                                                            
  */
 import '@openzeppelin/contracts/token/ERC721/ERC721Full.sol';
 import '@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol';
 import '@openzeppelin/contracts/math/SafeMath.sol';
 
-
-/**
- * font: Small
- *    _      _   ___                   _ ___               
- *   /_\    /_\ | _ ) ___  __ _ _ _ __| | _ ) __ _ ___ ___ 
- *  / _ \  / _ \| _ \/ _ \/ _` | '_/ _` | _ \/ _` (_-</ -_)
- * /_/ \_\/_/ \_\___/\___/\__,_|_| \__,_|___/\__,_/__/\___|
- *                                                        
- */
 contract AABoardBase {
-
     struct AdBoardData {
         uint256 parentId;
         uint256 price;
@@ -52,13 +17,12 @@ contract AABoardBase {
         uint256 lastTaxPayTimestamp;
         string content;
     }
-    
-    AdBoardData[] internal allAdBoards;    
+
+    AdBoardData[] internal allAdBoards;
 }
 
 
 /**
- * font: Small
  *    _      _   ___                   _ ___            _ 
  *   /_\    /_\ | _ ) ___  __ _ _ _ __| |_ _|_ __  _ __| |
  *  / _ \  / _ \| _ \/ _ \/ _` | '_/ _` || || '  \| '_ \ |
@@ -73,7 +37,7 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
     address payable public administrator;
     mapping (uint256 => uint256) public taxIncome;
     uint256 public allTaxIncome;
-    
+
     uint256 internal constant PERCENTAGE_BASE = 100;
     uint256 internal constant DEFAULT_TAX_RATE = 100;
     uint256 internal constant DEFAULT_COPYRIGHT_RATE = 50;
@@ -83,6 +47,8 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
     mapping (uint256 => uint256) private _customCopyrightRate;
     mapping (uint256 => uint256) private _customAdministrationRate;
 
+    address private owner;
+    mapping (address => bool) private admins;
 
     /**
     * font: Small
@@ -114,7 +80,7 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
         require(_exists(adId));
         _;
     }
-     
+
      /**
      * @dev Constructor
      * @param name The name of the NFT.
@@ -122,6 +88,8 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      */
     constructor (string memory name, string memory symbol) public ERC721Full(name, symbol) {
         // solhint-disable-previous-line no-empty-blocks
+        owner = msg.sender;
+        admins[owner] = true;
     }
 
     /**
@@ -229,11 +197,11 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
 
     /**
      * @dev Get all Ad Boards of an owner
-     * @param owner owner.
+     * @param _owner owner.
      * @return a list of Ad Boards the owner owns
      */
-    function getAdBoardIds(address owner) public view returns (uint256[] memory) {
-        return _tokensOfOwner(owner);
+    function getAdBoardIds(address _owner) public view returns (uint256[] memory) {
+        return _tokensOfOwner(_owner);
     }
 
     /**
@@ -286,6 +254,57 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
         data.content = content;
 
         emit ChangeContentEvent(adId);
+    }
+
+    /* Modifiers */
+    modifier onlyOwner() {
+        require(owner == msg.sender, "not owner");
+        _;
+    }
+
+    modifier onlyAdmins() {
+        require(admins[msg.sender], "not admin");
+        _;
+    }
+
+    /* Owner */
+    /**
+     * @dev Set owner
+     */    
+    function setOwner (address _owner) public onlyOwner()  {
+        owner = _owner;
+    }
+    /**
+     * @dev Add admin
+     */
+    function addAdmin (address _admin) public onlyOwner()  {
+        admins[_admin] = true;
+    }
+    /**
+     * @dev Withdraw admin
+     */
+    function removeAdmin (address _admin) public onlyOwner()  {
+        delete admins[_admin];
+    }
+
+    /* Withdraw */
+    /*
+        NOTICE: These functions withdraw the developer's cut which is left
+        in the contract by `buy`. User funds are immediately sent to the old
+        owner in `buy`, no user funds are left in the contract.
+    */
+    /**
+     * @dev Withdraw all the tax income
+     */    
+    function withdrawAll () public onlyAdmins()  {
+        msg.sender.transfer(address(this).balance);
+    }
+
+    /**
+     * @dev Withdraw all the tax income
+     */
+    function withdrawAmount (uint256 _amount) public onlyAdmins() {
+        msg.sender.transfer(_amount);
     }
 
     /**
