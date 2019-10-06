@@ -21,15 +21,6 @@ contract AABoardBase {
     AdBoardData[] internal allAdBoards;
 }
 
-
-/**
- *    _      _   ___                   _ ___            _ 
- *   /_\    /_\ | _ ) ___  __ _ _ _ __| |_ _|_ __  _ __| |
- *  / _ \  / _ \| _ \/ _ \/ _` | '_/ _` || || '  \| '_ \ |
- * /_/ \_\/_/ \_\___/\___/\__,_|_| \__,_|___|_|_|_| .__/_|
- *                                               |_|     
- *
- */
 contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
 
     using SafeMath for uint256;
@@ -50,14 +41,6 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
     address private owner;
     mapping (address => bool) private admins;
 
-    /**
-    * font: Small
-    *  ___             _      
-    * | __|_ _____ _ _| |_ ___
-    * | _|\ V / -_) ' \  _(_-<
-    * |___|\_/\___|_||_\__/__/
-    *  
-    */
     event BuyEvent(uint256 indexed adId);
     event CreateEvent(uint256 indexed adId);
     event TaxPayEvent(uint256 indexed adId, uint256 indexed copyrightAmount, uint256 indexed administrationAmount);
@@ -65,16 +48,6 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
     event ChangeContentEvent(uint256 indexed adId);
     event AddDepositEvent(uint256 indexed adId);
     event WithdrawDepositEvent(uint256 indexed adId);
-
-
-    /*
-     * font: Small
-     *  ___      _    _ _      ___             _   _             
-     * | _ \_  _| |__| (_)__  | __|  _ _ _  __| |_(_)___ _ _  ___
-     * |  _/ || | '_ \ | / _| | _| || | ' \/ _|  _| / _ \ ' \(_-<
-     * |_|  \_,_|_.__/_|_\__| |_| \_,_|_||_\__|\__|_\___/_||_/__/
-     *
-     */
 
     modifier adBoardExists(uint256 adId) {
         require(_exists(adId));
