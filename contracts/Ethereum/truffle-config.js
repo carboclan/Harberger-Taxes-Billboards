@@ -18,8 +18,8 @@
  *
  */
 
-const HDWalletProvider = require("@truffle/hdwallet-provider");
-
+const web3 = require("web3");
+const HDWalletProvider = require("truffle-hdwallet-provider");
 const infuraKey = "4d4db19f5885459a9181ecbf89c6aaca";
 
 const fs = require('fs');
@@ -58,7 +58,7 @@ module.exports = {
       gasPrice: 10000000000,
       confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true
+      skipDryRun: false
     },
     ropsten: {
       provider: () => new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/252df3eadab74e84a9e5635f8a401e11"),
@@ -72,11 +72,10 @@ module.exports = {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
       gas: 6700000,
-      gasPrice: 4500000000,
+      gasPrice: 7000000000,
       confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true,
-      from: "0xcc762b8C34b7d813482353bb226237a1d96dAB65"
+      skipDryRun: false
     },
   },
 
