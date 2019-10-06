@@ -56,7 +56,7 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
     * | __|_ _____ _ _| |_ ___
     * | _|\ V / -_) ' \  _(_-<
     * |___|\_/\___|_||_\__/__/
-    *                    
+    *  
     */
     event BuyEvent(uint256 indexed adId);
     event CreateEvent(uint256 indexed adId);
@@ -98,7 +98,7 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      * @param rate Tax rate
      */
     function setTaxRate(uint256 adId, uint256 rate) public onlyPauser adBoardExists(adId) {
-        require(rate > 0);
+        require(rate > 0 && rate <= PERCENTAGE_BASE);
         _customTaxRate[adId] = rate;
     }
 
@@ -108,7 +108,7 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      * @param rate Tax rate
      */
     function setCopyrightRate(uint256 adId, uint256 rate) public onlyPauser adBoardExists(adId) {
-        require(rate > 0);
+        require(rate > 0 && rate <= PERCENTAGE_BASE);
        _customCopyrightRate[adId] = rate;
     }
 
@@ -129,9 +129,6 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      * @param content The content of the created/forked Ad Board.
      */
     function buyAdBoard(uint256 adId, uint256 price, string memory content) public payable adBoardExists(adId) {
-        require(msg.sender != address(0));
-        require(price >= 0, "buyAdBoard: Price should be greater than or eaqual to 0");
-
         address currentOwner = ownerOf(adId);
         require(currentOwner != address(0) && msg.sender != currentOwner);
 
@@ -177,10 +174,6 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      * @param content The content of the created/forked Ad Board.
      */
     function createAdBoard(uint256 price, uint256 parentId, string memory content) public payable {
-        require(msg.sender != address(0));
-        require(parentId >= 0);
-        require(price >= 0, "createAdBoard: Price should be greater than or eaqual to 0");
-
         AdBoardData memory _adBoard = AdBoardData({
             parentId: (_exists(parentId) ? parentId : 0),
             price: (msg.value <= 0) ? 0 : price,
@@ -234,7 +227,6 @@ contract AABoardImpl is AABoardBase, ERC721Full, ERC721Pausable {
      */
     function changePrice(uint256 adId, uint256 price) public adBoardExists(adId) {
         require(msg.sender == ownerOf(adId), "changePrice: Only owner can change the price");
-        require(price >= 0, "changePrice: Incorrect Price");
         
         AdBoardData storage data = allAdBoards[adId];
         data.price = price;
@@ -523,7 +515,7 @@ contract AABoard is AABoardImpl {
         administrator = msg.sender;
         createAdBoard(uint256(0), uint256(0), "Genesis Board");
     }
-    
+
     /**
      * @dev Prevent direct money transfer to this contract
      */
